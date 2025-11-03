@@ -16,9 +16,33 @@ const orbitron = Orbitron({
 });
 
 export const metadata: Metadata = {
-  title: 'CTO Next Stack',
+  metadataBase: new URL('https://example.com'),
+  title: {
+    default: 'SentinelSec — Cybersecurity Specialists',
+    template: '%s — SentinelSec',
+  },
   description:
-    'A modern Next.js 14 application with TypeScript and Tailwind CSS',
+    'Elite cybersecurity: penetration testing, threat intelligence, cloud security, DFIR, and red team operations. Built with Next.js 14.',
+  applicationName: 'SentinelSec',
+  keywords: ['cybersecurity', 'penetration testing', 'red team', 'DFIR', 'cloud security', 'threat intelligence'],
+  openGraph: {
+    title: 'SentinelSec — Cybersecurity Specialists',
+    description:
+      'Elite cybersecurity: penetration testing, threat intelligence, cloud security, DFIR, and red team operations.',
+    url: 'https://example.com',
+    siteName: 'SentinelSec',
+    type: 'website',
+    locale: 'en_US',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'SentinelSec — Cybersecurity Specialists',
+    description:
+      'Elite cybersecurity: penetration testing, threat intelligence, cloud security, DFIR, and red team operations.',
+  },
+  alternates: {
+    canonical: '/',
+  },
 };
 
 export default function RootLayout({
