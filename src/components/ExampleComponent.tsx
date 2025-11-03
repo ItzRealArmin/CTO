@@ -13,9 +13,9 @@ export default function ExampleComponent() {
   });
 
   return (
-    <div className="p-6 bg-white rounded-lg shadow-md max-w-md mx-auto">
+    <div className="glass rounded-glass p-6 max-w-md mx-auto">
       <h2 className="text-2xl font-bold mb-4">User Profile</h2>
-      <div className="space-y-2">
+      <div className="space-y-2 text-sm">
         <p>
           <span className="font-semibold">Name:</span> {capitalize(user.name)}
         </p>

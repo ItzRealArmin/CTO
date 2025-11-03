@@ -1,5 +1,5 @@
 /**
- * Example utility function to demonstrate import aliases
+ * Example utility functions and helpers
  */
 
 export const formatDate = (date: Date): string => {
@@ -9,3 +9,8 @@ export const formatDate = (date: Date): string => {
 export const capitalize = (str: string): string => {
   return str.charAt(0).toUpperCase() + str.slice(1);
 };
+
+// Tiny utility to compose class names
+export function cn(...classes: Array<string | false | null | undefined>) {
+  return classes.filter(Boolean).join(" ");
+}
