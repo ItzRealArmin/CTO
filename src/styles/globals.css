@@ -1,3 +1,227 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Theme tokens and global styles */
+@layer base {
+  :root {
+    /* Base color tokens (dark default) */
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
+
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 0 0% 63.9%;
+
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
+
+    --card: 240 10% 6%;
+    --card-foreground: 0 0% 98%;
+
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 265 100% 72%;
+
+    --primary: 265 100% 72%;
+    --primary-foreground: 260 100% 12%;
+
+    --secondary: 174 90% 60%;
+    --secondary-foreground: 174 16% 10%;
+
+    --accent: 318 92% 62%;
+    --accent-foreground: 318 16% 10%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+
+    --grid-color: 220 6% 56%;
+    --shadow: 240 28% 3.5%;
+
+    /* Neon palette */
+    --neon-pink: 318 92% 62%;
+    --neon-cyan: 174 90% 60%;
+    --neon-green: 142 90% 65%;
+    --neon-violet: 265 100% 72%;
+    --neon-blue: 200 100% 60%;
+
+    /* Spacing scale */
+    --space-xs: 0.375rem; /* 6px */
+    --space-sm: 0.5rem;   /* 8px */
+    --space-md: 0.75rem;  /* 12px */
+    --space-lg: 1rem;     /* 16px */
+    --space-xl: 1.5rem;   /* 24px */
+    --space-2xl: 2rem;    /* 32px */
+
+    /* Typography scale */
+    --text-xs: 0.75rem;
+    --text-sm: 0.875rem;
+    --text-base: 1rem;
+    --text-lg: 1.125rem;
+    --text-xl: 1.25rem;
+    --text-2xl: 1.5rem;
+    --text-3xl: 1.875rem;
+    --text-4xl: 2.25rem;
+    --text-5xl: 3rem;
+
+    --radius: 14px;
+
+    /* Transition choreography */
+    --theme-transition: background-color 250ms ease, color 250ms ease,
+      border-color 250ms ease, outline-color 250ms ease,
+      box-shadow 350ms ease, fill 250ms ease, stroke 250ms ease,
+      opacity 250ms ease, filter 300ms ease;
+  }
+
+  /* Light theme overrides - applied when `light` class is present on <html> */
+  .light {
+    --background: 220 14% 96%;
+    --foreground: 230 15% 12%;
+
+    --muted: 210 16% 92%;
+    --muted-foreground: 233 6% 40%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 233 6% 12%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 230 15% 12%;
+
+    --border: 220 15% 85%;
+    --input: 220 15% 85%;
+    --ring: 265 100% 45%;
+
+    --primary: 265 92% 52%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 204 100% 45%;
+    --secondary-foreground: 0 0% 100%;
+
+    --accent: 318 92% 48%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84.2% 48.2%;
+    --destructive-foreground: 0 0% 100%;
+
+    --grid-color: 220 15% 35%;
+    --shadow: 220 35% 94%;
+  }
+
+  /* Explicit dark overrides to support toggling from light */
+  .dark {
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
+
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 0 0% 63.9%;
+
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
+
+    --card: 240 10% 6%;
+    --card-foreground: 0 0% 98%;
+
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 265 100% 72%;
+
+    --primary: 265 100% 72%;
+    --primary-foreground: 260 100% 12%;
+
+    --secondary: 174 90% 60%;
+    --secondary-foreground: 174 16% 10%;
+
+    --accent: 318 92% 62%;
+    --accent-foreground: 318 16% 10%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+
+    --grid-color: 220 6% 56%;
+    --shadow: 240 28% 3.5%;
+  }
+
+  * {
+    border-color: hsl(var(--border));
+  }
+
+  body {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    min-height: 100vh;
+    font-feature-settings: "ss01" on, "cv11" on;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Smooth theme transitions on demand */
+  html.theme-transition *,
+  html.theme-transition *::before,
+  html.theme-transition *::after {
+    transition: var(--theme-transition);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html.theme-transition *,
+    html.theme-transition *::before,
+    html.theme-transition *::after {
+      transition: none !important;
+    }
+  }
+
+  /* Background layers: neon radial mesh + grid + noise */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    pointer-events: none;
+    background: radial-gradient(600px circle at 20% 15%, hsl(var(--neon-cyan) / 0.12), transparent 60%),
+      radial-gradient(700px circle at 80% 5%, hsl(var(--neon-pink) / 0.12), transparent 60%),
+      radial-gradient(900px circle at 50% 85%, hsl(var(--neon-violet) / 0.10), transparent 70%);
+    filter: saturate(120%);
+  }
+
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background-image: linear-gradient(
+        to right,
+        hsl(var(--grid-color) / 0.06) 1px,
+        transparent 1px
+      ),
+      linear-gradient(
+        to bottom,
+        hsl(var(--grid-color) / 0.06) 1px,
+        transparent 1px
+      ),
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 100 100'><filter id='n' x='0' y='0'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/><feComponentTransfer><feFuncA type='table' tableValues='0 0 0.25 0'/></feComponentTransfer></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+    background-size: 24px 24px, 24px 24px, 180px 180px;
+    background-blend-mode: normal, normal, soft-light;
+    mask-image: radial-gradient(ellipse at center, black, transparent 75%);
+  }
+}
+
+@layer components {
+  .glass {
+    background: linear-gradient(
+      to bottom right,
+      hsl(var(--foreground) / 0.05),
+      hsl(var(--foreground) / 0.02)
+    );
+    backdrop-filter: saturate(150%) blur(10px);
+    -webkit-backdrop-filter: saturate(150%) blur(10px);
+    border: 1px solid hsl(var(--border) / 0.35);
+    box-shadow: inset 0 1px 0 0 hsl(var(--foreground) / 0.06),
+      0 10px 30px hsl(var(--shadow) / 0.25);
+    border-radius: var(--radius);
+  }
+
+  .text-neon {
+    text-shadow: 0 0 8px hsl(var(--primary) / 0.5),
+      0 0 16px hsl(var(--primary) / 0.35),
+      0 0 32px hsl(var(--primary) / 0.2);
+  }
+}
