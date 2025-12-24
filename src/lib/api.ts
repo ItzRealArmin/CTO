@@ -11,7 +11,7 @@ export const apiClient = {
     return response.json();
   },
 
-  post: async <T>(url: string, data: any): Promise<T> => {
+  post: async <T>(url: string, data: unknown): Promise<T> => {
     const response = await fetch(url, {
       method: 'POST',
       headers: {
